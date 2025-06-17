@@ -87,10 +87,28 @@
     }, 1000);
   </script>
 
-<audio autoplay loop>
+<audio id="bg-music" loop>
   <source src="musica.mp3" type="audio/mpeg">
   Tu navegador no soporta audio HTML5.
 </audio>
+
+<script>
+  // Detecta la primera interacción del usuario
+  function playMusicOnInteraction() {
+    const music = document.getElementById("bg-music");
+    if (music) {
+      music.play().catch(function(e) {
+        console.log("Autoplay bloqueado:", e);
+      });
+      // Elimina el evento para evitar múltiples llamadas
+      document.removeEventListener('mousemove', playMusicOnInteraction);
+      document.removeEventListener('touchstart', playMusicOnInteraction);
+    }
+  }
+
+  document.addEventListener('mousemove', playMusicOnInteraction);
+  document.addEventListener('touchstart', playMusicOnInteraction);
+</script>
 
 </body>
 </html>
