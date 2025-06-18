@@ -93,21 +93,19 @@
 </audio>
 
 <script>
-  // Detecta la primera interacción del usuario
-  function playMusicOnInteraction() {
+  function playMusicOnClick() {
     const music = document.getElementById("bg-music");
-    if (music) {
-      music.play().catch(function(e) {
-        console.log("Autoplay bloqueado:", e);
+    if (music && music.paused) {
+      music.play().then(() => {
+        console.log("Música reproducida.");
+      }).catch(err => {
+        console.log("Error al reproducir:", err);
       });
-      // Elimina el evento para evitar múltiples llamadas
-      document.removeEventListener('mousemove', playMusicOnInteraction);
-      document.removeEventListener('touchstart', playMusicOnInteraction);
+      document.removeEventListener('click', playMusicOnClick);
     }
   }
 
-  document.addEventListener('mousemove', playMusicOnInteraction);
-  document.addEventListener('touchstart', playMusicOnInteraction);
+  document.addEventListener('click', playMusicOnClick);
 </script>
 
 </body>
