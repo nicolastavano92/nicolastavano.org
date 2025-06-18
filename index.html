@@ -128,22 +128,6 @@
       background-color: #4fb3e6;
     }
 
-    button#music-button {
-      background: transparent;
-      color: #ffffff;
-      border: 1px solid #fff;
-      padding: 8px 12px;
-      border-radius: 5px;
-      font-size: 0.9em;
-      margin-top: 30px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    button#music-button:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
     hr {
       margin: 60px auto;
       width: 60%;
@@ -198,19 +182,33 @@
       </form>
     </section>
 
-    <button id="music-button" aria-label="Activar o desactivar música de fondo" onclick="toggleMusic()">🔊 Activar música</button>
-
     <hr>
   </main>
 
   <footer></footer>
 
   <audio id="bg-music" loop>
-    <source src="musica.mp3" type="audio/mpeg">
+    <source src="musica2.mp3" type="audio/mpeg">
     Tu navegador no soporta audio HTML5.
   </audio>
 
   <script>
+    // Música al hacer clic
+    function playMusicOnClick() {
+      const music = document.getElementById("bg-music");
+      if (music && music.paused) {
+        music.play().then(() => {
+          console.log("Música reproducida.");
+        }).catch(err => {
+          console.log("Error al reproducir:", err);
+        });
+        document.removeEventListener('click', playMusicOnClick);
+      }
+    }
+
+    document.addEventListener('click', playMusicOnClick);
+
+    // Cuenta regresiva
     const targetDate = new Date("2025-06-29T00:00:00-05:00").getTime();
 
     const daysEl = document.getElementById("days");
@@ -243,15 +241,6 @@
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
-
-    function toggleMusic() {
-      const music = document.getElementById("bg-music");
-      if (music.paused) {
-        music.play();
-      } else {
-        music.pause();
-      }
-    }
   </script>
 </body>
 </html>
