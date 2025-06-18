@@ -42,10 +42,18 @@
     }
 
     .countdown {
-      margin: 30px 0;
-      font-size: 1.5em;
-      color: #ffcccb;
-    }
+  margin: 30px 0;
+  font-size: 1.6em;
+  font-weight: bold;
+  color: #ffffff;
+  letter-spacing: 1.5px;
+  padding: 15px 25px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+}
 
     .message {
       font-size: 1.1em;
@@ -86,7 +94,7 @@
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      countdownElement.innerHTML = `Faltan ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      countdownElement.innerHTML = `Faltan ${days} días, ${hours} horas, ${minutes} minutos y ${seconds} segundos`;
     }, 1000);
   </script>
 
