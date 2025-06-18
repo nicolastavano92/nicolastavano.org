@@ -102,6 +102,32 @@
   display: block;
   color: #ccc;
 }
+    .faltan {
+  font-family: 'Satisfy', cursive;
+  font-size: 2.2em;
+  color: #ffffff;
+  margin-bottom: 0;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+}
+    @keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.faltan {
+  font-family: 'Satisfy', cursive;
+  font-size: 2.2em;
+  color: #ffffff;
+  margin-bottom: 0;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+  animation: fadeInUp 1s ease-out;
+}
   </style>
 </head>
 <body>
@@ -112,7 +138,7 @@
   <h2>No todos los libros quieren ser leídos.<br>
   Algunos solo quieren ser encontrados por quien los necesita.</h2>
 
-  <h2 style="margin-bottom: 0;">Faltan...</h2>
+  <h2 class="faltan">Faltan...</h2>
 <div class="countdown" id="countdown">
   <div class="countdown-box">
     <div class="countdown-time" id="days">00</div>
