@@ -38,14 +38,16 @@
 
 <div id="flipbook">
   <!-- Aquí se cargarán las páginas -->
-  <!-- Turn.js se encargará de esto -->
 </div>
 
-<!-- Turn.js -->
+<!-- ✅ 1) jQuery primero -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- ✅ 2) Turn.js después -->
 <script src="turn.min.js"></script>
 
 <script>
-  // Genera las páginas dinámicamente
+  // Generar páginas dinámicamente
   const flipbook = document.getElementById('flipbook');
   for(let i = 1; i <= 64; i++) {
     const page = document.createElement('div');
@@ -54,18 +56,21 @@
     flipbook.appendChild(page);
   }
 
-  $('#flipbook').turn({
-    width: '100%',
-    height: '100%',
-    autoCenter: true
+  // Inicializar Turn.js (ahora sí jQuery existe)
+  $(document).ready(function(){
+    $("#flipbook").turn({
+      width: '100%',
+      height: '100%',
+      autoCenter: true
+    });
   });
 
-  // Simulador de contador fake
+  // Contador fake automático
   let fakeCount = 1234;
   setInterval(() => {
     fakeCount += Math.floor(Math.random() * 3); // Aumenta aleatoriamente
     document.getElementById('count').textContent = fakeCount.toLocaleString();
-  }, 5000); // cada 5 segundos
+  }, 5000);
 
   // Pausar música de fondo de la página principal
   try {
@@ -77,6 +82,10 @@
     console.log('No se pudo pausar la música de fondo.');
   }
 </script>
+
+</body>
+</html>
+
 
 <!-- jQuery requerido por Turn.js -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
