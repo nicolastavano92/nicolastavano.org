@@ -2,9 +2,84 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Prueba visor libro</title>
+  <title>Aún guardo tu nombre - Libro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #222;
+      margin: 0;
+      overflow: hidden;
+    }
+    #flipbook {
+      width: 90%;
+      height: 90vh;
+      margin: 20px auto;
+    }
+    #flipbook .page {
+      width: 100%;
+      height: 100%;
+    }
+    #reader-counter {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      color: #fff;
+      font-family: sans-serif;
+      font-size: 0.9em;
+      background: rgba(0,0,0,0.4);
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hola mundo</h1>
+
+<div id="reader-counter">Lectores: <span id="count">1,234</span></div>
+
+<div id="flipbook">
+  <!-- Aquí se cargarán las páginas -->
+  <!-- Turn.js se encargará de esto -->
+</div>
+
+<!-- Turn.js -->
+<script src="turn.min.js"></script>
+
+<script>
+  // Genera las páginas dinámicamente
+  const flipbook = document.getElementById('flipbook');
+  for(let i = 1; i <= 64; i++) {
+    const page = document.createElement('div');
+    page.className = 'page';
+    page.innerHTML = `<img src="page${i}.jpg" style="width:100%; height:100%; object-fit: contain;">`;
+    flipbook.appendChild(page);
+  }
+
+  $('#flipbook').turn({
+    width: '100%',
+    height: '100%',
+    autoCenter: true
+  });
+
+  // Simulador de contador fake
+  let fakeCount = 1234;
+  setInterval(() => {
+    fakeCount += Math.floor(Math.random() * 3); // Aumenta aleatoriamente
+    document.getElementById('count').textContent = fakeCount.toLocaleString();
+  }, 5000); // cada 5 segundos
+
+  // Pausar música de fondo de la página principal
+  try {
+    const music = parent.document.getElementById('bg-music');
+    if (music && !music.paused) {
+      music.pause();
+    }
+  } catch(e) {
+    console.log('No se pudo pausar la música de fondo.');
+  }
+</script>
+
+<!-- jQuery requerido por Turn.js -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
 </html>
