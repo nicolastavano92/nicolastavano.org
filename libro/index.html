@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Aún guardo tu nombre - Libro</title>
+  <title>Aún guardo tu nombre</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
@@ -11,13 +11,14 @@
       overflow: hidden;
     }
     #flipbook {
-      width: 90%;
-      height: 90vh;
-      margin: 20px auto;
+      width: 800px;  /* Usa un tamaño fijo para probar */
+      height: 500px;
+      margin: 50px auto;
     }
     #flipbook .page {
-      width: 100%;
-      height: 100%;
+      width: 400px;
+      height: 500px;
+      background: white;
     }
     #reader-counter {
       position: fixed;
@@ -25,11 +26,9 @@
       right: 20px;
       color: #fff;
       font-family: sans-serif;
-      font-size: 0.9em;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.5);
       padding: 5px 10px;
       border-radius: 5px;
-      z-index: 10;
     }
   </style>
 </head>
@@ -37,34 +36,32 @@
 
 <div id="reader-counter">Lectores: <span id="count">1,234</span></div>
 
-<div id="flipbook"></div>
+<div id="flipbook">
+  <!-- Las páginas se generan aquí -->
+</div>
 
-<!-- jQuery primero -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Turn.js después -->
 <script src="turn.min.js"></script>
 
 <script>
-  // Cargar páginas dinámicamente
-  const flipbook = document.getElementById('flipbook');
-  for(let i = 1; i <= 64; i++) {
+  // Generar páginas
+  for (let i = 1; i <= 64; i++) {
     const page = document.createElement('div');
     page.className = 'page';
     page.innerHTML = `<img src="page${i}.jpg" style="width:100%; height:100%; object-fit: contain;">`;
-    flipbook.appendChild(page);
+    document.getElementById('flipbook').appendChild(page);
   }
 
   // Inicializar Turn.js
   $(document).ready(function(){
     $("#flipbook").turn({
-      width: 1200,
-      height: 800,
+      width: 800,
+      height: 500,
       autoCenter: true
     });
   });
 
-  // Contador falso
+  // Contador fake
   let fakeCount = 1234;
   setInterval(() => {
     fakeCount += Math.floor(Math.random() * 3);
