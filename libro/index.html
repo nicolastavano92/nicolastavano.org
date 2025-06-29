@@ -37,15 +37,16 @@
 <div id="reader-counter">Lectores: <span id="count">1,234</span></div>
 
 <div id="flipbook">
-  <!-- Páginas se cargan dinámicamente -->
+  <!-- Las páginas se cargan dinámicamente -->
 </div>
 
-<!-- Librerías -->
+<!-- jQuery primero -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="turn.min.js"></script>
+<!-- Turn.js desde CDN -->
+<script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@master/lib/turn.min.js"></script>
 
 <script>
-  // Cargar páginas dinámicamente
+  // Generar páginas
   const flipbook = document.getElementById('flipbook');
   for (let i = 1; i <= 64; i++) {
     const page = document.createElement('div');
