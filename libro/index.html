@@ -10,7 +10,7 @@
 
   <style>
     body {
-      background: #222 url('fondo.png') no-repeat center center fixed;
+      background: url('fondo.png') center center no-repeat fixed;
       background-size: cover;
       margin: 0;
       overflow: hidden;
@@ -22,30 +22,27 @@
       margin: 40px auto;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 0 20px rgba(0,0,0,0.7);
     }
 
     #flipbook .page {
       width: 400px;
       height: 500px;
-      background: white;
+      background: #222;  /* Color de fondo para los márgenes */
       float: left;
       backface-visibility: hidden;
       cursor: pointer;
-      overflow: hidden;
     }
 
     #flipbook .page img {
       width: 100%;
       height: 100%;
-      object-fit: cover;  /* Ajusta la imagen para cubrir todo sin dejar bordes */
+      object-fit: contain; /* Mostrar toda la imagen sin recortar */
       display: block;
       -webkit-user-drag: none;
       user-drag: none;
       pointer-events: none;
     }
 
-    /* Flechas escritorio */
     .nav-arrow {
       position: fixed;
       top: 50%;
@@ -57,7 +54,6 @@
       cursor: pointer;
       user-select: none;
       z-index: 1000;
-      border-radius: 50%;
     }
     .nav-arrow:hover {
       background: rgba(0,0,0,0.8);
@@ -69,7 +65,6 @@
       .nav-arrow { display: none; }
     }
 
-    /* Contador odómetro */
     #thanks-block {
       position: fixed;
       bottom: 30px;
@@ -141,25 +136,20 @@
     $('#next-page').click(() => flipbook.turn('next'));
 
     // Contador odómetro
-    let count = 728;  // Empieza en 728
+    let count = 728;
     const odometer = document.getElementById('odometer');
-
-    // Sumar 1 visita al abrir
-    count++;
     odometer.innerHTML = count;
 
-    // Sumar 1 cada 12 minutos (5 por hora)
     setInterval(() => {
       count++;
       odometer.innerHTML = count;
-    }, 720000);
+    }, 720000); // 12 min
 
-    console.log("Flipbook listo. Contador de visitas activo.");
+    // Bloquear clic derecho
+    document.addEventListener('contextmenu', event => event.preventDefault());
   });
-
-  // Bloquear clic derecho
-  document.addEventListener('contextmenu', event => event.preventDefault());
 </script>
 
 </body>
 </html>
+
