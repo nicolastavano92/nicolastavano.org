@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>Aún guardo tu nombre - Libro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Odometer.js CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-default.min.css"/>
+
   <style>
     body {
       background: #222;
@@ -25,7 +29,7 @@
       background: white;
       float: left;
       backface-visibility: hidden;
-      cursor: pointer; /* Cursor de mano en desktop */
+      cursor: pointer;
     }
 
     #flipbook .page img {
@@ -33,44 +37,12 @@
       height: 100%;
       object-fit: contain;
       display: block;
-      -webkit-user-drag: none; /* Bloquear arrastre */
+      -webkit-user-drag: none;
       user-drag: none;
-      pointer-events: none;     /* Bloquear clic en imagen */
+      pointer-events: none;
     }
 
-    /* Contador moderno estilo glassmorphism */
-    #reader-counter {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(5px);
-      color: #fff;
-      font-family: 'Georgia', serif;
-      font-size: 1.1em;
-      letter-spacing: 1px;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 30px;
-      padding: 12px 24px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    #reader-counter .icon {
-      font-size: 1.2em;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-
-    /* Flechas para escritorio */
+    /* Flechas para desktop */
     .nav-arrow {
       position: fixed;
       top: 50%;
@@ -90,30 +62,55 @@
     #next-page { right: 20px; }
 
     @media (max-width: 768px) {
-      .nav-arrow { display: none; } /* Ocultar flechas en móvil */
+      .nav-arrow { display: none; }
+    }
+
+    /* Contador odómetro */
+    #thanks-block {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: #fff;
+      font-family: 'Georgia', serif;
+      backdrop-filter: blur(4px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 12px 24px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    #thanks-block .odometer {
+      font-size: 2em;
+      margin: 5px 0;
     }
   </style>
 </head>
 <body>
 
-<!-- Contador moderno -->
-<div id="reader-counter">
-  <span class="icon">👁️</span>
-  <span>Lectores: <span id="count">1,234</span></span>
-</div>
-
-<!-- Flechas para pasar página -->
+<!-- Flechas para escritorio -->
 <div id="prev-page" class="nav-arrow">&#8592;</div>
 <div id="next-page" class="nav-arrow">&#8594;</div>
 
 <!-- Flipbook -->
 <div id="flipbook"></div>
 
-<!-- jQuery primero -->
+<!-- Contador bonito -->
+<div id="thanks-block">
+  Gracias a los<br>
+  <div id="odometer" class="odometer">1500</div>
+  lectores
+</div>
+
+<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- Turn.js LOCAL -->
 <script src="turn.min.js"></script>
+
+<!-- Odometer.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
 
 <script>
   $(document).ready(function(){
@@ -135,19 +132,22 @@
       acceleration: true
     });
 
-    // Flechas de navegación
+    // Flechas
     $('#prev-page').click(() => flipbook.turn('previous'));
     $('#next-page').click(() => flipbook.turn('next'));
 
-    // Contador animado
-    let fakeCount = 1234;
+    // Contador odómetro
+    let count = 1500;
+    const odometer = document.getElementById('odometer');
+    odometer.innerHTML = count;
+
     setInterval(() => {
-      fakeCount += Math.floor(Math.random() * 3);
-      $('#count').text(fakeCount.toLocaleString());
-    }, 5000);
+      count++;
+      odometer.innerHTML = count;
+    }, 720000); // Cada 12 min ≈ 5 visitas por hora
   });
 
-  // Bloquear clic derecho en toda la página
+  // Bloquear clic derecho
   document.addEventListener('contextmenu', event => event.preventDefault());
 </script>
 
