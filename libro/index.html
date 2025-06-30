@@ -65,8 +65,8 @@
       .nav-arrow { display: none; }
     }
 
-    /* Bloque contador y likes */
-    #info-block {
+    /* Bloque contador lectores */
+    #readers-block {
       position: fixed;
       bottom: 30px;
       left: 50%;
@@ -81,23 +81,38 @@
       padding: 12px 24px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-    #info-block .odometer {
+    #readers-block .odometer {
       font-size: 1.8em;
       margin: 5px 0;
     }
-    .likes {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 8px;
+
+    /* Bloque likes separado */
+    #likes-block {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      text-align: center;
+      color: #fff;
+      font-family: 'Georgia', serif;
+      backdrop-filter: blur(4px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 12px 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-    .likes button {
+
+    #likes-block button {
       background: none;
       border: none;
       font-size: 1.5em;
       color: #ff6b81;
       cursor: pointer;
       margin-right: 8px;
+    }
+
+    #likes-block .likes-count {
+      font-size: 1.3em;
     }
   </style>
 </head>
@@ -110,15 +125,17 @@
 <!-- Flipbook -->
 <div id="flipbook"></div>
 
-<!-- Contador lectores y likes -->
-<div id="info-block">
+<!-- Contador lectores -->
+<div id="readers-block">
   Gracias a los<br>
   <div id="odometer" class="odometer">794</div>
   lectores
-  <div class="likes">
-    <button id="like-btn">❤️</button>
-    <span id="like-count">120</span> Me gusta
-  </div>
+</div>
+
+<!-- Bloque Likes separado -->
+<div id="likes-block">
+  <button id="like-btn">❤️</button>
+  <span id="like-count" class="likes-count">120</span> Me gusta
 </div>
 
 <!-- jQuery -->
@@ -162,21 +179,30 @@
       odometer.innerHTML = readers;
     }, 720000); // +1 cada 12 min
 
-    // Contador likes
+    // Likes
     let likes = 120;
     const likeCount = document.getElementById('like-count');
     likeCount.textContent = likes;
 
-    // +1 cada 15 min fake
+    // Revisar si ya dio like
+    if (localStorage.getItem('liked') === 'true') {
+      document.getElementById('like-btn').disabled = true;
+    }
+
+    // +1 cada 15 min
     setInterval(() => {
       likes++;
       likeCount.textContent = likes;
-    }, 900000); // 900,000 ms = 15 min
+    }, 900000); // +1 cada 15 min
 
-    // +1 real
+    // Like real solo 1 vez
     $('#like-btn').click(() => {
-      likes++;
-      likeCount.textContent = likes;
+      if (!localStorage.getItem('liked')) {
+        likes++;
+        likeCount.textContent = likes;
+        localStorage.setItem('liked', 'true');
+        document.getElementById('like-btn').disabled = true;
+      }
     });
 
     // Bloquear clic derecho
