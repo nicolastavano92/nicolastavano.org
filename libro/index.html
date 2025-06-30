@@ -14,11 +14,15 @@
       width: 800px;
       height: 500px;
       margin: 40px auto;
+      position: relative; /* NECESARIO para Turn.js */
+      overflow: hidden;   /* NECESARIO para Turn.js */
     }
     #flipbook .page {
-      width: 400px;
-      height: 500px;
+      width: 400px;  /* Ancho de cada página */
+      height: 500px; /* Alto de cada página */
       background: white;
+      float: left;  /* NECESARIO para Turn.js */
+      backface-visibility: hidden; /* Mejora la animación */
     }
     #flipbook .page img {
       width: 100%;
