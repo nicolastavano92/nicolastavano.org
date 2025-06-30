@@ -27,7 +27,7 @@
     #flipbook .page {
       width: 400px;
       height: 500px;
-      background: #111; /* Cambiar fondo interno para que las franjas blancas se vean más integradas */
+      background: #111; /* Fondo interno para mimetizar bordes */
       float: left;
       backface-visibility: hidden;
       cursor: pointer;
@@ -36,14 +36,13 @@
     #flipbook .page img {
       width: 100%;
       height: 100%;
-      object-fit: contain; /* Muestra toda la imagen */
+      object-fit: contain;
       display: block;
       -webkit-user-drag: none;
       user-drag: none;
       pointer-events: none;
     }
 
-    /* Flechas para escritorio */
     .nav-arrow {
       position: fixed;
       top: 50%;
@@ -66,8 +65,8 @@
       .nav-arrow { display: none; }
     }
 
-    /* Contador odómetro */
-    #thanks-block {
+    /* Bloque contador y likes */
+    #info-block {
       position: fixed;
       bottom: 30px;
       left: 50%;
@@ -82,26 +81,44 @@
       padding: 12px 24px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-    #thanks-block .odometer {
-      font-size: 2em;
+    #info-block .odometer {
+      font-size: 1.8em;
       margin: 5px 0;
+    }
+    .likes {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .likes button {
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      color: #ff6b81;
+      cursor: pointer;
+      margin-right: 8px;
     }
   </style>
 </head>
 <body>
 
-<!-- Flechas para escritorio -->
+<!-- Flechas -->
 <div id="prev-page" class="nav-arrow">&#8592;</div>
 <div id="next-page" class="nav-arrow">&#8594;</div>
 
 <!-- Flipbook -->
 <div id="flipbook"></div>
 
-<!-- Contador bonito -->
-<div id="thanks-block">
+<!-- Contador lectores y likes -->
+<div id="info-block">
   Gracias a los<br>
   <div id="odometer" class="odometer">794</div>
   lectores
+  <div class="likes">
+    <button id="like-btn">❤️</button>
+    <span id="like-count">120</span> Me gusta
+  </div>
 </div>
 
 <!-- jQuery -->
@@ -117,12 +134,11 @@
   $(document).ready(function(){
     const flipbook = $('#flipbook');
 
-    // Generar páginas
+    // Páginas
     for (let i = 1; i <= 64; i++) {
       flipbook.append(`<div class="page"><img src="page${i}.jpg" alt="Página ${i}"></div>`);
     }
 
-    // Inicializar Turn.js
     flipbook.turn({
       width: 800,
       height: 500,
@@ -133,20 +149,35 @@
       acceleration: true
     });
 
-    // Flechas
     $('#prev-page').click(() => flipbook.turn('previous'));
     $('#next-page').click(() => flipbook.turn('next'));
 
-    // Contador odómetro
-    let count = 794; // nuevo número inicial
+    // Contador lectores
+    let readers = 794;
     const odometer = document.getElementById('odometer');
-    odometer.innerHTML = count;
+    odometer.innerHTML = readers;
 
-    // Cada 12 min suma 1 lectura (5/hora)
     setInterval(() => {
-      count++;
-      odometer.innerHTML = count;
-    }, 720000); // 720,000 ms = 12 min
+      readers++;
+      odometer.innerHTML = readers;
+    }, 720000); // +1 cada 12 min
+
+    // Contador likes
+    let likes = 120;
+    const likeCount = document.getElementById('like-count');
+    likeCount.textContent = likes;
+
+    // +1 cada 15 min fake
+    setInterval(() => {
+      likes++;
+      likeCount.textContent = likes;
+    }, 900000); // 900,000 ms = 15 min
+
+    // +1 real
+    $('#like-btn').click(() => {
+      likes++;
+      likeCount.textContent = likes;
+    });
 
     // Bloquear clic derecho
     document.addEventListener('contextmenu', event => event.preventDefault());
