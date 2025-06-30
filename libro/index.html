@@ -51,29 +51,28 @@
 
 <!-- jQuery primero -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Turn.js desde CDN -->
-<script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@master/lib/turn.min.js"></script>
 
+<!-- Turn.js LOCAL -->
+<script src="turn.min.js"></script>
+
+<!-- Tu script -->
 <script>
   $(document).ready(function(){
     const flipbook = $('#flipbook');
-    
-    // Asegúrate que sean 64 páginas si tienes 64 imágenes
+
     for (let i = 1; i <= 64; i++) {
       flipbook.append(`<div class="page"><img src="page${i}.jpg" alt="Página ${i}"></div>`);
     }
 
-    // Inicializar Turn.js correctamente
     flipbook.turn({
-      width: 800,      // Ancho total del flipbook (2 páginas)
-      height: 500,     // Alto
+      width: 800,
+      height: 500,
       autoCenter: true,
-      display: 'double',  // Muy importante para doble página
+      display: 'double',
       elevation: 50,
       gradients: true
     });
 
-    // Contador fake
     let fakeCount = 1234;
     setInterval(() => {
       fakeCount += Math.floor(Math.random() * 3);
@@ -81,7 +80,3 @@
     }, 5000);
   });
 </script>
-
-</body>
-</html>
-
