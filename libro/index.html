@@ -10,7 +10,8 @@
 
   <style>
     body {
-      background: #222;
+      background: #222 url('fondo.png') no-repeat center center fixed;
+      background-size: cover;
       margin: 0;
       overflow: hidden;
     }
@@ -21,6 +22,7 @@
       margin: 40px auto;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.7);
     }
 
     #flipbook .page {
@@ -30,19 +32,20 @@
       float: left;
       backface-visibility: hidden;
       cursor: pointer;
+      overflow: hidden;
     }
 
     #flipbook .page img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;  /* Ajusta la imagen para cubrir todo sin dejar bordes */
       display: block;
       -webkit-user-drag: none;
       user-drag: none;
       pointer-events: none;
     }
 
-    /* Flechas para desktop */
+    /* Flechas escritorio */
     .nav-arrow {
       position: fixed;
       top: 50%;
@@ -54,6 +57,7 @@
       cursor: pointer;
       user-select: none;
       z-index: 1000;
+      border-radius: 50%;
     }
     .nav-arrow:hover {
       background: rgba(0,0,0,0.8);
@@ -99,7 +103,7 @@
 <!-- Contador bonito -->
 <div id="thanks-block">
   Gracias a los<br>
-  <div id="odometer" class="odometer">1500</div>
+  <div id="odometer" class="odometer">728</div>
   lectores
 </div>
 
@@ -137,14 +141,20 @@
     $('#next-page').click(() => flipbook.turn('next'));
 
     // Contador odómetro
-    let count = 782;
+    let count = 728;  // Empieza en 728
     const odometer = document.getElementById('odometer');
+
+    // Sumar 1 visita al abrir
+    count++;
     odometer.innerHTML = count;
 
+    // Sumar 1 cada 12 minutos (5 por hora)
     setInterval(() => {
       count++;
       odometer.innerHTML = count;
-    }, 720000); // Cada 12 min ≈ 5 visitas por hora
+    }, 720000);
+
+    console.log("Flipbook listo. Contador de visitas activo.");
   });
 
   // Bloquear clic derecho
