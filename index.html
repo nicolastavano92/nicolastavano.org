@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="El 29 de junio se lanza 'Aún guardo tu nombre', una historia íntima que será destinada a una causa benéfica. Suscríbete para ser notificado.">
+  <meta name="description" content="Aún guardo tu nombre – Un libro que espera ser encontrado">
   <title>Aún guardo tu nombre – Un libro que espera ser encontrado</title>
   <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Playfair+Display&display=swap" rel="stylesheet">
   <style>
@@ -47,33 +47,23 @@
       margin: 20px 0;
     }
 
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin: 30px auto;
-      flex-wrap: wrap;
+    .leer-ahora {
+      display: inline-block;
+      padding: 15px 40px;
+      background-color: #66c4ff;
+      color: #fff;
+      font-size: 1.2em;
+      font-family: 'Playfair Display', serif;
+      text-decoration: none;
+      border-radius: 40px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: background 0.3s, transform 0.3s;
+      margin-top: 40px;
     }
 
-    .countdown-box {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 15px;
-      border-radius: 8px;
-      min-width: 70px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    }
-
-    .countdown-time {
-      font-size: 2em;
-      font-weight: bold;
-      color: #ffffff;
-    }
-
-    .countdown-label {
-      font-size: 0.8em;
-      color: #ffcccb;
-      margin-top: 5px;
+    .leer-ahora:hover {
+      background-color: #4fb3e6;
+      transform: translateY(-2px);
     }
 
     .message {
@@ -83,57 +73,8 @@
       margin: 30px auto;
     }
 
-    .faltan {
-      font-family: 'Satisfy', cursive;
-      font-size: 2.2em;
-      color: #ffffff;
-      margin-bottom: 0;
-      text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
-      animation: fadeInUp 1s ease-out;
-    }
-
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    form input[type="email"] {
-      padding: 12px;
-      width: 80%;
-      max-width: 400px;
-      border: none;
-      border-radius: 4px;
-      margin-bottom: 10px;
-      font-size: 1em;
-    }
-
-    form input[type="submit"] {
-      padding: 12px 24px;
-      background-color: #66c4ff; /* nuevo color más armónico */
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background 0.3s;
-    }
-
-    form input[type="submit"]:hover {
-      background-color: #4fb3e6;
-    }
-
-    hr {
-      margin: 60px auto;
-      width: 60%;
-      border: none;
-      border-top: 1px solid #fff;
-      opacity: 0.2;
+    audio {
+      display: none;
     }
   </style>
 </head>
@@ -146,46 +87,13 @@
   </header>
 
   <main>
-    <h2 class="faltan">Faltan...</h2>
-    <div class="countdown" id="countdown">
-      <div class="countdown-box">
-        <div class="countdown-time" id="days">00</div>
-        <div class="countdown-label">DÍAS</div>
-      </div>
-      <div class="countdown-box">
-        <div class="countdown-time" id="hours">00</div>
-        <div class="countdown-label">HORAS</div>
-      </div>
-      <div class="countdown-box">
-        <div class="countdown-time" id="minutes">00</div>
-        <div class="countdown-label">MINUTOS</div>
-      </div>
-      <div class="countdown-box">
-        <div class="countdown-time" id="seconds">00</div>
-        <div class="countdown-label">SEGUNDOS</div>
-      </div>
-    </div>
-
     <div class="message">
-      <p><strong>El 29 de junio comienza algo que no sé si es una despedida, una carta o solo una historia más.</strong></p>
-      <p><small>Todo lo recaudado será destinado a una causa que lo merezca.<br>Lo diré aquí, cuando lo sepa con certeza.</small></p>
+      <p><strong>“Aún guardo tu nombre” ya está disponible para ti.</strong></p>
+      <p><small>Todo lo recaudado será destinado a una causa que lo merezca.</small></p>
     </div>
 
-    <section style="margin: 60px auto; max-width: 500px; text-align: center;">
-      <h2 style="font-family: 'Satisfy', cursive; font-size: 2em; color: #fff; margin-bottom: 10px;">
-        ¿Quieres que te avise cuando se publique?
-      </h2>
-      <form action="https://gmail.us7.list-manage.com/subscribe/post?u=97bf85fb020ea2dd42a5dcca5&amp;id=68d5034458&amp;f_id=0073a8e0f0" method="post" target="_blank" novalidate style="margin-top: 20px;">
-        <input type="email" name="EMAIL" placeholder="Tu correo electrónico" required />
-        <br>
-        <input type="submit" value="Notificarme" />
-      </form>
-    </section>
-
-    <hr>
+    <a href="https://nicolastavano.org/libro" class="leer-ahora">Leer ahora</a>
   </main>
-
-  <footer></footer>
 
   <audio id="bg-music" loop>
     <source src="musica2.mp3" type="audio/mpeg">
@@ -207,40 +115,6 @@
     }
 
     document.addEventListener('click', playMusicOnClick);
-
-    // Cuenta regresiva
-    const targetDate = new Date("2025-06-29T00:00:00-05:00").getTime();
-
-    const daysEl = document.getElementById("days");
-    const hoursEl = document.getElementById("hours");
-    const minutesEl = document.getElementById("minutes");
-    const secondsEl = document.getElementById("seconds");
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      if (distance < 0) {
-        daysEl.textContent = "00";
-        hoursEl.textContent = "00";
-        minutesEl.textContent = "00";
-        secondsEl.textContent = "00";
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      daysEl.textContent = String(days).padStart(2, '0');
-      hoursEl.textContent = String(hours).padStart(2, '0');
-      minutesEl.textContent = String(minutes).padStart(2, '0');
-      secondsEl.textContent = String(seconds).padStart(2, '0');
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
