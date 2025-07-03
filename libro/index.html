@@ -28,11 +28,11 @@
     #flipbook .page {
       width: 50%;
       height: 100%;
-      background: transparent; /* transparente para ver fondo */
+      background: transparent;
       float: left;
       backface-visibility: hidden;
       cursor: pointer;
-      box-shadow: inset 0 0 50px rgba(0,0,0,0.2); /* suaviza bordes */
+      box-shadow: inset 0 0 50px rgba(0,0,0,0.2);
     }
 
     #flipbook .page img {
@@ -45,7 +45,6 @@
       pointer-events: none;
     }
 
-    /* Flechas escritorio */
     .nav-arrow {
       position: fixed;
       top: 50%;
@@ -69,7 +68,6 @@
       .nav-arrow { display: none; }
     }
 
-    /* Bloque contador lectores */
     #readers-block {
       position: fixed;
       bottom: 20px;
@@ -91,7 +89,6 @@
       margin: 5px 0;
     }
 
-    /* Bloque Likes */
     #likes-block {
       position: fixed;
       top: 20px;
@@ -121,22 +118,24 @@
       font-size: 1.3em;
     }
 
-    /* Indicador móvil */
-    #mobile-tip {
+    #mobile-arrow {
       display: none;
       position: fixed;
-      bottom: 100px;
+      bottom: 80px;
       left: 50%;
       transform: translateX(-50%);
+      font-size: 2em;
       color: #fff;
-      font-family: 'Georgia', serif;
-      background: rgba(0,0,0,0.5);
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-size: 0.9em;
+      animation: bounce 1.5s infinite;
+      z-index: 999;
     }
     @media (max-width: 768px) {
-      #mobile-tip { display: block; }
+      #mobile-arrow { display: block; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, -10px); }
     }
   </style>
 </head>
@@ -152,18 +151,18 @@
 <!-- Contador lectores -->
 <div id="readers-block">
   Gracias a los<br>
-  <div id="odometer" class="odometer">899</div>
+  <div id="odometer" class="odometer">892</div>
   lectores
 </div>
 
 <!-- Bloque Likes -->
 <div id="likes-block">
   <button id="like-btn">❤️</button>
-  <span id="like-count" class="likes-count">482</span> Me gusta
+  <span id="like-count" class="likes-count">629</span> Me gusta
 </div>
 
-<!-- Indicador móvil -->
-<div id="mobile-tip">Desliza para pasar de página 📖</div>
+<!-- Flechita móvil -->
+<div id="mobile-arrow">⬅️➡️</div>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -178,7 +177,6 @@
   $(document).ready(function(){
     const flipbook = $('#flipbook');
 
-    // Páginas
     for (let i = 1; i <= 64; i++) {
       flipbook.append(`<div class="page"><img src="page${i}.jpg" alt="Página ${i}"></div>`);
     }
@@ -197,21 +195,27 @@
     $('#next-page').click(() => flipbook.turn('next'));
 
     // Contador lectores
-    let readers = 794;
     const odometer = document.getElementById('odometer');
-    odometer.innerHTML = readers;
+    let readers = parseInt(odometer.innerHTML) || 0;
 
-    setInterval(() => {
+    if (!localStorage.getItem('readers_counted')) {
       readers++;
       odometer.innerHTML = readers;
-    }, 720000); // +1 cada 12 min
+      localStorage.setItem('readers_counted', 'true');
+    }
 
     // Likes
-    let likes = 120;
     const likeCount = document.getElementById('like-count');
-    likeCount.textContent = likes;
+    let likes = parseInt(likeCount.textContent) || 0;
 
-    if (localStorage.getItem('liked') === 'true') {
+    if (!localStorage.getItem('liked')) {
+      $('#like-btn').click(() => {
+        likes++;
+        likeCount.textContent = likes;
+        localStorage.setItem('liked', 'true');
+        document.getElementById('like-btn').disabled = true;
+      });
+    } else {
       document.getElementById('like-btn').disabled = true;
     }
 
@@ -219,15 +223,6 @@
       likes++;
       likeCount.textContent = likes;
     }, 900000); // +1 cada 15 min
-
-    $('#like-btn').click(() => {
-      if (!localStorage.getItem('liked')) {
-        likes++;
-        likeCount.textContent = likes;
-        localStorage.setItem('liked', 'true');
-        document.getElementById('like-btn').disabled = true;
-      }
-    });
 
     document.addEventListener('contextmenu', event => event.preventDefault());
   });
