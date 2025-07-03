@@ -10,27 +10,29 @@
 
   <style>
     body {
-      background: #222 url('fondo.png') no-repeat center center fixed;
+      background: url('fondo.png') no-repeat center center fixed;
       background-size: cover;
       margin: 0;
       overflow: hidden;
     }
 
     #flipbook {
-      width: 800px;
+      width: 90%;
+      max-width: 800px;
       height: 500px;
-      margin: 40px auto;
+      margin: 60px auto;
       position: relative;
       overflow: hidden;
     }
 
     #flipbook .page {
-      width: 400px;
-      height: 500px;
-      background: #111; /* Fondo interno para mimetizar bordes */
+      width: 50%;
+      height: 100%;
+      background: transparent; /* transparente para ver fondo */
       float: left;
       backface-visibility: hidden;
       cursor: pointer;
+      box-shadow: inset 0 0 50px rgba(0,0,0,0.2); /* suaviza bordes */
     }
 
     #flipbook .page img {
@@ -43,6 +45,7 @@
       pointer-events: none;
     }
 
+    /* Flechas escritorio */
     .nav-arrow {
       position: fixed;
       top: 50%;
@@ -54,6 +57,7 @@
       cursor: pointer;
       user-select: none;
       z-index: 1000;
+      border-radius: 50%;
     }
     .nav-arrow:hover {
       background: rgba(0,0,0,0.8);
@@ -68,7 +72,7 @@
     /* Bloque contador lectores */
     #readers-block {
       position: fixed;
-      bottom: 30px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
@@ -78,19 +82,20 @@
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 20px;
-      padding: 12px 24px;
+      padding: 10px 20px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
     }
     #readers-block .odometer {
       font-size: 1.8em;
       margin: 5px 0;
     }
 
-    /* Bloque likes separado */
+    /* Bloque Likes */
     #likes-block {
       position: fixed;
-      top: 30px;
-      right: 30px;
+      top: 20px;
+      right: 20px;
       text-align: center;
       color: #fff;
       font-family: 'Georgia', serif;
@@ -98,8 +103,9 @@
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 20px;
-      padding: 12px 20px;
+      padding: 10px 16px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
     }
 
     #likes-block button {
@@ -113,6 +119,24 @@
 
     #likes-block .likes-count {
       font-size: 1.3em;
+    }
+
+    /* Indicador móvil */
+    #mobile-tip {
+      display: none;
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-family: 'Georgia', serif;
+      background: rgba(0,0,0,0.5);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.9em;
+    }
+    @media (max-width: 768px) {
+      #mobile-tip { display: block; }
     }
   </style>
 </head>
@@ -132,11 +156,14 @@
   lectores
 </div>
 
-<!-- Bloque Likes separado -->
+<!-- Bloque Likes -->
 <div id="likes-block">
   <button id="like-btn">❤️</button>
   <span id="like-count" class="likes-count">120</span> Me gusta
 </div>
+
+<!-- Indicador móvil -->
+<div id="mobile-tip">Desliza para pasar de página 📖</div>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -184,18 +211,15 @@
     const likeCount = document.getElementById('like-count');
     likeCount.textContent = likes;
 
-    // Revisar si ya dio like
     if (localStorage.getItem('liked') === 'true') {
       document.getElementById('like-btn').disabled = true;
     }
 
-    // +1 cada 15 min
     setInterval(() => {
       likes++;
       likeCount.textContent = likes;
     }, 900000); // +1 cada 15 min
 
-    // Like real solo 1 vez
     $('#like-btn').click(() => {
       if (!localStorage.getItem('liked')) {
         likes++;
@@ -205,7 +229,6 @@
       }
     });
 
-    // Bloquear clic derecho
     document.addEventListener('contextmenu', event => event.preventDefault());
   });
 </script>
