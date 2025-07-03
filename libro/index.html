@@ -14,15 +14,15 @@
       background-size: cover;
       margin: 0;
       overflow: hidden;
+      font-family: 'Georgia', serif;
     }
 
     #flipbook {
       width: 90%;
       max-width: 800px;
       height: 500px;
-      margin: 60px auto;
+      margin: 40px auto 80px auto;
       position: relative;
-      overflow: hidden;
     }
 
     #flipbook .page {
@@ -46,13 +46,13 @@
     }
 
     .nav-arrow {
-      position: fixed;
-      top: 50%;
+      position: absolute;
+      bottom: -50px;
       transform: translateY(-50%);
       color: #fff;
       font-size: 2em;
       background: rgba(0,0,0,0.5);
-      padding: 10px;
+      padding: 8px;
       cursor: pointer;
       user-select: none;
       z-index: 1000;
@@ -61,108 +61,71 @@
     .nav-arrow:hover {
       background: rgba(0,0,0,0.8);
     }
-    #prev-page { left: 20px; }
-    #next-page { right: 20px; }
+    #prev-page { left: 45%; }
+    #next-page { right: 45%; }
 
-    @media (max-width: 768px) {
-      .nav-arrow { display: none; }
+    @media (min-width: 769px) {
+      .nav-arrow {
+        position: fixed;
+        top: 50%;
+        bottom: auto;
+        transform: translateY(-50%);
+      }
+      #prev-page { left: 20px; }
+      #next-page { right: 20px; }
     }
 
-    #readers-block {
+    /* Bloque contadores juntos */
+    #counters {
       position: fixed;
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      text-align: center;
-      color: #fff;
-      font-family: 'Georgia', serif;
+      display: flex;
+      align-items: center;
+      gap: 20px;
       backdrop-filter: blur(4px);
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.4);
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 20px;
       padding: 10px 20px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      z-index: 999;
-    }
-    #readers-block .odometer {
-      font-size: 1.8em;
-      margin: 5px 0;
-    }
-
-    #likes-block {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      text-align: center;
       color: #fff;
-      font-family: 'Georgia', serif;
-      backdrop-filter: blur(4px);
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 20px;
-      padding: 10px 16px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      font-size: 1em;
       z-index: 999;
     }
+    .odometer {
+      font-size: 1.2em;
+      margin: 0 5px;
+    }
 
-    #likes-block button {
+    .like-btn {
       background: none;
       border: none;
       font-size: 1.5em;
       color: #ff6b81;
       cursor: pointer;
-      margin-right: 8px;
+      margin-right: 5px;
     }
 
-    #likes-block .likes-count {
-      font-size: 1.3em;
-    }
-
-    #mobile-arrow {
-      display: none;
-      position: fixed;
-      bottom: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2em;
-      color: #fff;
-      animation: bounce 1.5s infinite;
-      z-index: 999;
-    }
-    @media (max-width: 768px) {
-      #mobile-arrow { display: block; }
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translate(-50%, 0); }
-      50% { transform: translate(-50%, -10px); }
-    }
   </style>
 </head>
 <body>
+
+<!-- Flipbook -->
+<div id="flipbook"></div>
 
 <!-- Flechas -->
 <div id="prev-page" class="nav-arrow">&#8592;</div>
 <div id="next-page" class="nav-arrow">&#8594;</div>
 
-<!-- Flipbook -->
-<div id="flipbook"></div>
-
-<!-- Contador lectores -->
-<div id="readers-block">
-  Gracias a los<br>
-  <div id="odometer" class="odometer">892</div>
-  lectores
+<!-- Contadores combinados -->
+<div id="counters">
+  <span><span id="odometer" class="odometer">892</span> lectores</span>
+  |
+  <button id="like-btn" class="like-btn">❤️</button>
+  <span id="like-count" class="odometer">629</span> me gusta
 </div>
-
-<!-- Bloque Likes -->
-<div id="likes-block">
-  <button id="like-btn">❤️</button>
-  <span id="like-count" class="likes-count">629</span> Me gusta
-</div>
-
-<!-- Flechita móvil -->
-<div id="mobile-arrow">⬅️➡️</div>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -177,6 +140,7 @@
   $(document).ready(function(){
     const flipbook = $('#flipbook');
 
+    // Páginas
     for (let i = 1; i <= 64; i++) {
       flipbook.append(`<div class="page"><img src="page${i}.jpg" alt="Página ${i}"></div>`);
     }
@@ -194,36 +158,42 @@
     $('#prev-page').click(() => flipbook.turn('previous'));
     $('#next-page').click(() => flipbook.turn('next'));
 
-    // Contador lectores
+    // Contadores
+    let readers = 892;
+    let likes = 629;
     const odometer = document.getElementById('odometer');
-    let readers = parseInt(odometer.innerHTML) || 0;
+    const likeCount = document.getElementById('like-count');
 
-    if (!localStorage.getItem('readers_counted')) {
+    odometer.innerHTML = readers;
+    likeCount.innerHTML = likes;
+
+    setInterval(() => {
       readers++;
       odometer.innerHTML = readers;
-      localStorage.setItem('readers_counted', 'true');
-    }
-
-    // Likes
-    const likeCount = document.getElementById('like-count');
-    let likes = parseInt(likeCount.textContent) || 0;
-
-    if (!localStorage.getItem('liked')) {
-      $('#like-btn').click(() => {
-        likes++;
-        likeCount.textContent = likes;
-        localStorage.setItem('liked', 'true');
-        document.getElementById('like-btn').disabled = true;
-      });
-    } else {
-      document.getElementById('like-btn').disabled = true;
-    }
+    }, 720000); // +1 cada 12 min
 
     setInterval(() => {
       likes++;
-      likeCount.textContent = likes;
+      likeCount.innerHTML = likes;
     }, 900000); // +1 cada 15 min
 
+    // Like real suma 1 a ambos solo 1 vez
+    if (localStorage.getItem('liked') === 'true') {
+      document.getElementById('like-btn').disabled = true;
+    }
+
+    $('#like-btn').click(() => {
+      if (!localStorage.getItem('liked')) {
+        likes++;
+        readers++;
+        likeCount.innerHTML = likes;
+        odometer.innerHTML = readers;
+        localStorage.setItem('liked', 'true');
+        document.getElementById('like-btn').disabled = true;
+      }
+    });
+
+    // Bloquear clic derecho
     document.addEventListener('contextmenu', event => event.preventDefault());
   });
 </script>
