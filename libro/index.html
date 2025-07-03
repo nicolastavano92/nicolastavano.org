@@ -15,13 +15,14 @@
       margin: 0;
       overflow: hidden;
       font-family: 'Georgia', serif;
+      color: #fff;
     }
 
     #flipbook {
       width: 90%;
       max-width: 800px;
       height: 500px;
-      margin: 40px auto 80px auto;
+      margin: 60px auto 100px auto;
       position: relative;
     }
 
@@ -46,39 +47,56 @@
     }
 
     .nav-arrow {
-      position: absolute;
-      bottom: -50px;
-      transform: translateY(-50%);
       color: #fff;
-      font-size: 2em;
+      font-size: 2.2em;
       background: rgba(0,0,0,0.5);
-      padding: 8px;
+      padding: 12px;
       cursor: pointer;
       user-select: none;
       z-index: 1000;
       border-radius: 50%;
+      transition: background 0.3s;
     }
     .nav-arrow:hover {
       background: rgba(0,0,0,0.8);
     }
-    #prev-page { left: 45%; }
-    #next-page { right: 45%; }
 
+    /* Flechas PC: centro lateral */
     @media (min-width: 769px) {
-      .nav-arrow {
+      #prev-page {
         position: fixed;
         top: 50%;
-        bottom: auto;
+        left: 20px;
         transform: translateY(-50%);
       }
-      #prev-page { left: 20px; }
-      #next-page { right: 20px; }
+      #next-page {
+        position: fixed;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+      }
     }
 
-    /* Bloque contadores juntos */
+    /* Flechas Móvil: abajo separadas */
+    @media (max-width: 768px) {
+      #prev-page {
+        position: fixed;
+        bottom: 40px;
+        left: 20px;
+        font-size: 3em;
+      }
+      #next-page {
+        position: fixed;
+        bottom: 40px;
+        right: 20px;
+        font-size: 3em;
+      }
+    }
+
+    /* Bloque contadores combinado */
     #counters {
       position: fixed;
-      bottom: 20px;
+      bottom: 100px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -94,8 +112,9 @@
       font-size: 1em;
       z-index: 999;
     }
+
     .odometer {
-      font-size: 1.2em;
+      font-size: 1.3em;
       margin: 0 5px;
     }
 
@@ -108,6 +127,15 @@
       margin-right: 5px;
     }
 
+    .like-btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    /* Bloquear texto select */
+    * {
+      user-select: none;
+    }
   </style>
 </head>
 <body>
@@ -119,7 +147,7 @@
 <div id="prev-page" class="nav-arrow">&#8592;</div>
 <div id="next-page" class="nav-arrow">&#8594;</div>
 
-<!-- Contadores combinados -->
+<!-- Contadores -->
 <div id="counters">
   <span><span id="odometer" class="odometer">892</span> lectores</span>
   |
@@ -130,7 +158,7 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Turn.js LOCAL -->
+<!-- Turn.js -->
 <script src="turn.min.js"></script>
 
 <!-- Odometer.js -->
@@ -140,11 +168,12 @@
   $(document).ready(function(){
     const flipbook = $('#flipbook');
 
-    // Páginas
+    // Crear páginas
     for (let i = 1; i <= 64; i++) {
       flipbook.append(`<div class="page"><img src="page${i}.jpg" alt="Página ${i}"></div>`);
     }
 
+    // Iniciar flipbook
     flipbook.turn({
       width: 800,
       height: 500,
@@ -155,6 +184,7 @@
       acceleration: true
     });
 
+    // Flechas
     $('#prev-page').click(() => flipbook.turn('previous'));
     $('#next-page').click(() => flipbook.turn('next'));
 
@@ -167,6 +197,7 @@
     odometer.innerHTML = readers;
     likeCount.innerHTML = likes;
 
+    // Incrementos automáticos
     setInterval(() => {
       readers++;
       odometer.innerHTML = readers;
@@ -177,11 +208,12 @@
       likeCount.innerHTML = likes;
     }, 900000); // +1 cada 15 min
 
-    // Like real suma 1 a ambos solo 1 vez
+    // Revisar si ya dio like
     if (localStorage.getItem('liked') === 'true') {
       document.getElementById('like-btn').disabled = true;
     }
 
+    // Like real suma a ambos una sola vez
     $('#like-btn').click(() => {
       if (!localStorage.getItem('liked')) {
         likes++;
