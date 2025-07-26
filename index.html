@@ -2,37 +2,27 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aún guardo tu nombre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
       padding: 0;
+      font-family: 'Playfair Display', serif;
       background: url('portada.jpg') no-repeat center center fixed;
       background-size: cover;
-      font-family: 'Georgia', serif;
       color: white;
       text-align: center;
-      height: 100vh;
-      overflow: hidden;
     }
 
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 0;
-    }
-
-    .content {
+    .contenido {
       position: relative;
-      z-index: 1;
-      top: 50%;
+      z-index: 2;
+      top: 40%;
       transform: translateY(-50%);
-      padding: 20px;
     }
 
     h1 {
@@ -40,54 +30,65 @@
       margin-bottom: 0.2em;
     }
 
-    h2 {
+    p.subtitulo {
       font-size: 1.5em;
-      font-weight: normal;
-      margin-bottom: 1.5em;
+      margin-bottom: 2em;
     }
 
-    .button-container {
+    .botones {
       display: flex;
       justify-content: center;
       gap: 20px;
       flex-wrap: wrap;
+      margin-top: 30px;
     }
 
-    .button {
+    .btn {
       background-color: rgba(255, 255, 255, 0.2);
       border: 1px solid white;
       color: white;
-      padding: 15px 30px;
+      padding: 12px 30px;
       font-size: 1.2em;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
       border-radius: 5px;
       text-decoration: none;
+      transition: 0.3s;
     }
 
-    .button:hover {
+    .btn:hover {
       background-color: rgba(255, 255, 255, 0.4);
     }
 
     audio {
-      display: none;
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      p.subtitulo {
+        font-size: 1.2em;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
-  <div class="content">
+  <div class="contenido">
     <h1>Aún guardo tu nombre</h1>
-    <h2>una historia escrita desde lo que dolió</h2>
-
-    <div class="button-container">
-      <a href="libro.html" class="button">Leer ahora</a>
-      <a href="carta.html" class="button">Carta abierta</a>
+    <p class="subtitulo">Una historia que fue nuestra, y ahora es de quien la lea</p>
+    
+    <div class="botones">
+      <a href="libro.html" class="btn">Leer ahora</a>
+      <a href="carta.html" class="btn">Carta abierta</a>
     </div>
   </div>
 
   <audio autoplay loop>
-    <source src="cancion.mp3" type="audio/mpeg">
+    <source src="musica.mp3" type="audio/mpeg" />
+    Tu navegador no soporta el audio.
   </audio>
 </body>
 </html>
