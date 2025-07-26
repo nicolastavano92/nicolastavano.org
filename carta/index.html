@@ -1,81 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Carta</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carta Abierta</title>
   <style>
     body {
       margin: 0;
-      background-color: #0a0a0a;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
+      padding: 0;
+      background-color: #111;
+      color: white;
+      font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 40px 20px;
       min-height: 100vh;
     }
 
-    .contenido {
+    .container {
       display: flex;
-      flex-direction: row;
+      flex: 1;
+      padding: 40px;
       gap: 40px;
-      flex-wrap: wrap;
       justify-content: center;
-      align-items: flex-start;
-      width: 100%;
-      max-width: 1200px;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    .contenido img {
+    img {
       max-width: 100%;
       height: auto;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     }
 
-    .pie {
-      margin-top: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 16px;
+    .footer {
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid #444;
     }
 
-    .frase {
-      font-size: 18px;
-      font-style: italic;
+    .footer p {
+      margin: 10px 0;
+      font-size: 1.2em;
       color: #ccc;
     }
 
-    .boton {
-      background-color: #ffffff10;
-      border: 1px solid #ffffff30;
-      color: white;
+    .footer a {
+      display: inline-block;
+      margin-top: 10px;
       padding: 10px 20px;
-      border-radius: 8px;
+      background-color: #444;
+      color: white;
       text-decoration: none;
-      transition: background-color 0.3s ease;
+      border-radius: 5px;
+      transition: background-color 0.3s;
     }
 
-    .boton:hover {
-      background-color: #ffffff30;
+    .footer a:hover {
+      background-color: #666;
     }
   </style>
 </head>
 <body>
 
-  <div class="contenido">
-    <img src="IMAGEN.jpg" alt="Imagen introductoria" style="max-width: 40%;">
-    <img src="CARTA 01.JPG" alt="Carta" style="max-width: 55%;">
+  <div class="container">
+    <img src="IMAGEN.jpg" alt="Imagen ilustrativa" style="max-width: 40%;">
+    <img src="CARTA.jpg" alt="Carta abierta" style="max-width: 55%;">
   </div>
 
-  <div class="pie">
-    <div class="frase">Alguien tenía que escribir esto.</div>
-    <a class="boton" href="../index.html">Volver al inicio</a>
+  <div class="footer">
+    <p>Alguien tenía que escribir esto.</p>
+    <a href="../index.html">Volver al inicio</a>
   </div>
 
 </body>
