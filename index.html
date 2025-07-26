@@ -3,92 +3,119 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aún guardo tu nombre</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <meta name="description" content="Aún guardo tu nombre – Un libro que espera ser encontrado">
+  <title>Aún guardo tu nombre – Un libro que espera ser encontrado</title>
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Playfair+Display&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      padding: 0;
+      padding: 40px 20px;
       font-family: 'Playfair Display', serif;
-      background: url('portada.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
+      color: #f5f5f5;
       text-align: center;
+      background: url('fondo.png') no-repeat center center fixed;
+      background-size: cover;
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
     }
 
-    .contenido {
-      position: relative;
-      z-index: 2;
-      top: 40%;
-      transform: translateY(-50%);
+    .frase-principal {
+      font-family: 'Satisfy', cursive;
+      font-size: 2.8em;
+      color: #ffffff;
+      margin: 30px 0 10px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     }
 
-    h1 {
-      font-size: 3em;
-      margin-bottom: 0.2em;
+    h2 {
+      font-size: 1.3em;
+      font-weight: normal;
+      margin: 10px auto 30px;
+      color: #cccccc;
+      max-width: 600px;
+      line-height: 1.5em;
     }
 
-    p.subtitulo {
-      font-size: 1.5em;
-      margin-bottom: 2em;
+    img {
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+      margin: 20px 0;
     }
 
-    .botones {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-
-    .btn {
-      background-color: rgba(255, 255, 255, 0.2);
-      border: 1px solid white;
-      color: white;
-      padding: 12px 30px;
+    .leer-ahora, .boton-contacto {
+      display: inline-block;
+      padding: 15px 40px;
+      background-color: #66c4ff;
+      color: #fff;
       font-size: 1.2em;
-      border-radius: 5px;
+      font-family: 'Playfair Display', serif;
       text-decoration: none;
-      transition: 0.3s;
+      border-radius: 40px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: background 0.3s, transform 0.3s;
+      margin-top: 20px;
     }
 
-    .btn:hover {
-      background-color: rgba(255, 255, 255, 0.4);
+    .leer-ahora:hover,
+    .boton-contacto:hover {
+      background-color: #4fb3e6;
+      transform: translateY(-2px);
+    }
+
+    .message {
+      font-size: 1.1em;
+      line-height: 1.6em;
+      max-width: 600px;
+      margin: 30px auto;
     }
 
     audio {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2em;
-      }
-
-      p.subtitulo {
-        font-size: 1.2em;
-      }
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="contenido">
-    <h1>Aún guardo tu nombre</h1>
-    <p class="subtitulo">Una historia que fue nuestra, y ahora es de quien la lea</p>
-    
-    <div class="botones">
-      <a href="libro.html" class="btn">Leer ahora</a>
-      <a href="carta.html" class="btn">Carta abierta</a>
-    </div>
-  </div>
+  <header>
+    <h1 class="frase-principal">Algunos crecen mientras esperan. ¿Y tú?</h1>
+    <img src="portada.png" alt="Portada del libro Aún guardo tu nombre" />
+    <h2>No todos los libros quieren ser leídos.<br>
+    Algunos solo quieren ser encontrados por quien los necesita.</h2>
+  </header>
 
-  <audio autoplay loop>
-    <source src="musica.mp3" type="audio/mpeg" />
-    Tu navegador no soporta el audio.
+  <main>
+    <div class="message">
+      <p><strong>“Aún guardo tu nombre” ya está disponible para ti.</strong></p>
+    </div>
+
+    <a href="https://nicolastavano.org/libro" class="leer-ahora">Leer ahora</a><br>
+    <a href="#" class="boton-contacto">Déjame tu contacto</a>
+  </main>
+
+  <audio id="bg-music" loop>
+    <source src="musica2.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
   </audio>
+
+  <script>
+    // Música al hacer clic
+    function playMusicOnClick() {
+      const music = document.getElementById("bg-music");
+      if (music && music.paused) {
+        music.play().then(() => {
+          console.log("Música reproducida.");
+        }).catch(err => {
+          console.log("Error al reproducir:", err);
+        });
+        document.removeEventListener('click', playMusicOnClick);
+      }
+    }
+
+    document.addEventListener('click', playMusicOnClick);
+  </script>
 </body>
 </html>
