@@ -2,38 +2,55 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Carta abierta – 25 de julio</title>
+  <title>Carta Abierta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
-      font-family: 'Georgia', serif;
-      background-color: #f9f9f9;
-      text-align: center;
-      padding: 30px;
+      background: linear-gradient(to bottom, #000000, #1a1a1a);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+      font-family: 'Segoe UI', sans-serif;
+      animation: fadeIn 1.5s ease-in-out;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
     img {
-      max-width: 100%;
+      max-width: 90%;
       height: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
     }
-    .mensaje {
-      margin-top: 30px;
-      font-size: 1.2em;
-      color: #444;
+
+    .boton-regresar {
+      margin-top: 20px;
+      background-color: #ffffff10;
+      border: 1px solid #ffffff30;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .boton-regresar:hover {
+      background-color: #ffffff30;
     }
   </style>
 </head>
 <body>
-  <h1>Carta abierta – 25 de julio</h1>
-
-  <div>
-    <img src="CARTA 01.jpg" alt="Carta manuscrita">
-  </div>
-
-  <div class="mensaje">
-    <p>Alguien tenía que escribirla. No para cerrar, sino para seguir respirando.</p>
-  </div>
+  <img src="CARTA 01.JPG" alt="Carta abierta 25/07">
+  <img src="IMAGEN.jpg" alt="Imagen relacionada">
+  <a class="boton-regresar" href="../index.html">← Volver al inicio</a>
 </body>
 </html>
 
