@@ -22,6 +22,7 @@
       position: relative;
       width: 100%;
       max-width: 900px;
+      height: auto;
     }
 
     .fade-container img {
@@ -36,13 +37,9 @@
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
     }
 
-    #imagen {
+    .visible {
       opacity: 1;
       z-index: 2;
-    }
-
-    #carta {
-      z-index: 1;
     }
 
     .boton-regresar {
@@ -65,7 +62,7 @@
 </head>
 <body>
   <div class="fade-container">
-    <img id="imagen" src="IMAGEN.jpg" alt="Imagen introductoria">
+    <img id="imagen" src="IMAGEN.jpg" alt="Imagen introductoria" class="visible">
     <img id="carta" src="CARTA 01.JPG" alt="Carta abierta">
   </div>
 
@@ -73,9 +70,13 @@
 
   <script>
     setTimeout(() => {
-      document.getElementById('imagen').style.opacity = 0;
-      document.getElementById('carta').style.opacity = 1;
-    }, 4000); // cambia después de 4 segundos
+      const imagen = document.getElementById('imagen');
+      const carta = document.getElementById('carta');
+
+      imagen.classList.remove('visible');
+      carta.classList.add('visible');
+    }, 4000); // espera 4 segundos antes de hacer el cambio
   </script>
 </body>
 </html>
+
