@@ -3,100 +3,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aún guardo tu nombre - Nicolás Tavano</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <title>Aún guardo tu nombre</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Playfair Display', serif;
-      background-image: url('fondo.jpg');
+      padding: 0;
+      background: url('portada.jpg') no-repeat center center fixed;
       background-size: cover;
-      background-position: center;
-      color: #fff;
+      font-family: 'Georgia', serif;
+      color: white;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
     }
 
-    header {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 30px 20px 10px;
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 20px;
     }
 
     h1 {
       font-size: 3em;
-      margin: 0;
+      margin-bottom: 0.2em;
     }
 
-    .autor {
-      font-size: 1.2em;
-      margin-top: 10px;
-      color: #ccc;
+    h2 {
+      font-size: 1.5em;
+      font-weight: normal;
+      margin-bottom: 1.5em;
     }
 
-    main {
-      flex: 1;
+    .button-container {
       display: flex;
-      flex-direction: column;
       justify-content: center;
-      padding: 40px 20px;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
-    .message {
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 30px;
-      border-radius: 10px;
-      max-width: 700px;
-      margin: 0 auto;
-      font-size: 1.4em;
-    }
-
-    .leer-ahora {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 15px 30px;
-      font-size: 1em;
-      background-color: #ff6666;
+    .button {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid white;
       color: white;
-      text-decoration: none;
-      border-radius: 8px;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      cursor: pointer;
       transition: background-color 0.3s ease;
+      border-radius: 5px;
+      text-decoration: none;
     }
 
-    .leer-ahora:hover {
-      background-color: #ff4d4d;
+    .button:hover {
+      background-color: rgba(255, 255, 255, 0.4);
     }
 
-    footer {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 20px;
-      font-size: 0.9em;
-      color: #ccc;
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <header>
+  <div class="overlay"></div>
+  <div class="content">
     <h1>Aún guardo tu nombre</h1>
-    <div class="autor">Un libro de Nicolás Tavano</div>
-  </header>
+    <h2>una historia escrita desde lo que dolió</h2>
 
-  <main>
-    <div class="message">
-      <p><strong>“Aún guardo tu nombre” ya está disponible para ti.</strong></p>
+    <div class="button-container">
+      <a href="libro.html" class="button">Leer ahora</a>
+      <a href="carta.html" class="button">Carta abierta</a>
     </div>
+  </div>
 
-    <div style="display: flex; flex-direction: column; gap: 15px; align-items: center; margin-top: 40px;">
-      <a href="https://nicolastavano.org/libro" class="leer-ahora">Leer ahora</a>
-      <a href="carta.html" class="leer-ahora" style="background-color: #ff9999;">Carta abierta</a>
-    </div>
-  </main>
-
-  <footer>
-    © 2025 Nicolás Tavano. Todos los derechos reservados.
-  </footer>
+  <audio autoplay loop>
+    <source src="cancion.mp3" type="audio/mpeg">
+  </audio>
 </body>
 </html>
