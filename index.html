@@ -4,8 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Página oficial">
-  <title>Aún guardo tu nombre</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  <title>Nueva Portada</title>
   <style>
     * {
       box-sizing: border-box;
@@ -17,22 +16,28 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: url('fondo.png') no-repeat center center fixed;
-      background-size: cover;
-      backdrop-filter: blur(3px);
-      -webkit-backdrop-filter: blur(3px);
+      background-color: #000000;
     }
 
     img {
-      max-width: 500px;
-      width: 90%;
+      width: 95%;
+      max-width: 1000px;
       height: auto;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      border-radius: 12px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
     }
 
     audio {
       display: none;
+    }
+
+    @media (max-width: 768px) {
+      img {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+      }
     }
   </style>
 </head>
@@ -53,8 +58,8 @@
         document.removeEventListener('click', playMusicOnClick);
       }
     }
-
     document.addEventListener('click', playMusicOnClick);
   </script>
 </body>
 </html>
+
